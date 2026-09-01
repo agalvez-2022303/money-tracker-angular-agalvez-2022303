@@ -1,0 +1,40 @@
+<div class="cursor-dot"></div>
+<div class="cursor-ring"></div>
+@for (o of ondas; track o.id) {
+  <div class="click-ripple" [style.left]="o.x + 'px'" [style.top]="o.y + 'px'"></div>
+}
+<div class="scanlines"></div>
+<div class="linea-inferior"></div>
+
+<div class="stars">
+  @for (e of estrellas; track e.id) {
+    <div class="star" [style.left.%]="e.l" [style.top.%]="e.t" [style.width.px]="e.s" [style.height.px]="e.s" [style.--d]="e.d" [style.--dl]="e.dl"></div>
+  }
+</div>
+
+<div class="pagina-expirada">
+  <div class="tarjeta-expirada">
+    <div class="logo-orbital">
+      <div class="logo-anillo logo-anillo-1"></div>
+      <div class="logo-anillo logo-anillo-2"></div>
+      <img src="assets/logo.png" alt="Money Tracker" class="expirado-logo"/>
+      <div class="logo-glow"></div>
+    </div>
+    <div class="expirado-marca">Money Tracker</div>
+
+    <div class="expirado-icono">
+      <svg lucideClock size="44"></svg>
+    </div>
+    <h1 class="expirado-titulo">Tu sesión ha expirado</h1>
+    <p class="expirado-sub">
+      Vuelve a iniciar sesión para continuar.
+    </p>
+
+    <div class="expirado-acciones">
+      <a class="expirado-boton btn-shimmer" (click)="irALogin()">
+        Iniciar sesión
+      </a>
+      <a class="expirado-volver" (click)="irAInicio()">Volver al inicio</a>
+    </div>
+  </div>
+</div>
