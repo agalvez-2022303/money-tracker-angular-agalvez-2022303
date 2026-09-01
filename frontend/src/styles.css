@@ -1,0 +1,412 @@
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+:root {
+  --bg: #040806;
+  --surface: #0e0e12;
+  --surface-el: #16161c;
+  --fg: #f0f0f0;
+  --muted: #666;
+  --border: #1e1e24;
+  --accent: #e0e0e0;
+  --font-display: 'Inter', system-ui, sans-serif;
+  --font-body: 'Inter', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+}
+html { cursor: auto; }
+body {
+  font-family: var(--font-body);
+  background: var(--bg);
+  color: var(--fg);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  position: relative;
+}
+body::before {
+  content: '';
+  position: fixed; inset: 0; z-index: -1;
+  background:
+    radial-gradient(ellipse 120% 60% at 15% 10%, rgba(34,197,94,0.10) 0%, transparent 60%),
+    radial-gradient(ellipse 100% 50% at 85% 15%, rgba(34,197,94,0.08) 0%, transparent 55%),
+    radial-gradient(ellipse 140% 40% at 50% 0%, rgba(34,197,94,0.06) 0%, transparent 50%),
+    radial-gradient(ellipse 80% 80% at 20% 80%, rgba(34,197,94,0.05) 0%, transparent 50%),
+    radial-gradient(ellipse 90% 70% at 80% 70%, rgba(34,197,94,0.04) 0%, transparent 50%),
+    radial-gradient(ellipse 60% 40% at 50% 50%, rgba(34,197,94,0.03) 0%, transparent 60%);
+  animation: aurora 20s ease-in-out infinite alternate;
+  pointer-events: none;
+}
+body::after {
+  content: '';
+  position: fixed; inset: 0; z-index: -1;
+  background:
+    radial-gradient(ellipse 100% 50% at 70% 20%, rgba(34,197,94,0.07) 0%, transparent 55%),
+    radial-gradient(ellipse 130% 35% at 30% 5%, rgba(16,185,129,0.06) 0%, transparent 50%),
+    radial-gradient(ellipse 70% 60% at 60% 85%, rgba(34,197,94,0.05) 0%, transparent 50%),
+    radial-gradient(ellipse 110% 45% at 10% 60%, rgba(16,185,129,0.04) 0%, transparent 55%);
+  animation: auroraAlt 25s ease-in-out infinite alternate-reverse;
+  pointer-events: none;
+}
+@keyframes aurora {
+  0%   { opacity: 0.7; transform: scale(1) translateX(0); }
+  50%  { opacity: 1;   transform: scale(1.05) translateX(-2%); }
+  100% { opacity: 0.8; transform: scale(1) translateX(2%); }
+}
+@keyframes auroraAlt {
+  0%   { opacity: 0.6; transform: scale(1.02) translateY(0); }
+  50%  { opacity: 0.9; transform: scale(1) translateY(-1%); }
+  100% { opacity: 0.7; transform: scale(1.03) translateY(1%); }
+}
+
+/* ── Cursor ── */
+.cursor-dot {
+  position: fixed; width: 8px; height: 8px;
+  background: #22C55E; border-radius: 50%;
+  pointer-events: none; z-index: 10000;
+  transform: translate(-50%,-50%);
+  box-shadow: 0 0 10px rgba(34,197,94,0.6), 0 0 20px rgba(34,197,94,0.3);
+  transition: transform 0.15s cubic-bezier(0.23,1,0.32,1), background 0.15s, box-shadow 0.15s;
+}
+.cursor-ring {
+  position: fixed; width: 36px; height: 36px;
+  border: 1.5px solid rgba(34,197,94,0.35);
+  border-radius: 50%; pointer-events: none; z-index: 9999;
+  transform: translate(-50%,-50%);
+  transition: width 0.3s cubic-bezier(0.23,1,0.32,1), height 0.3s cubic-bezier(0.23,1,0.32,1), border-color 0.3s, box-shadow 0.3s;
+}
+.cursor-ring.hovering {
+  width: 56px; height: 56px;
+  border-color: rgba(34,197,94,0.6);
+  box-shadow: 0 0 15px rgba(34,197,94,0.2), inset 0 0 10px rgba(34,197,94,0.1);
+}
+.click-ripple {
+  position: fixed; pointer-events: none; z-index: 9998;
+  width: 16px; height: 16px;
+  border: 1px solid rgba(34,197,94,0.6);
+  border-radius: 50%;
+  transform: translate(-50%,-50%) scale(0);
+  animation: rippleGreen 0.6s ease-out forwards;
+}
+@keyframes rippleGreen {
+  0% { transform: translate(-50%,-50%) scale(0); opacity: 1; border-color: rgba(34,197,94,0.8); }
+  100% { transform: translate(-50%,-50%) scale(6); opacity: 0; border-color: rgba(34,197,94,0); }
+}
+
+/* ── Scanlines ── */
+.scanlines {
+  position: fixed; inset: 0; pointer-events: none; z-index: 2;
+  background: repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,0.025) 2px,rgba(0,0,0,0.025) 4px);
+}
+
+/* ── Stars ── */
+.stars { position: fixed; inset: 0; z-index: 0; }
+.star {
+  position: absolute; border-radius: 50%;
+  background: rgba(255,255,255,0.45);
+  animation: twinkle var(--d) ease-in-out infinite var(--dl);
+}
+@keyframes twinkle { 0%,100%{opacity:.08} 50%{opacity:.65} }
+
+/* ── CRYPTO COINS ── */
+.solar-scene {
+  position: fixed; inset: 0; z-index: 0;
+  pointer-events: none; overflow: hidden;
+  perspective: 900px;
+}
+
+.coin {
+  position: absolute;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-body); font-weight: 800;
+  font-style: normal; text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+  border: 2px solid rgba(255,255,255,0.08);
+  box-shadow: inset 0 -4px 12px rgba(0,0,0,0.35), 0 0 30px rgba(34,197,94,0.2);
+  will-change: transform;
+}
+.coin::before {
+  content: '';
+  position: absolute; inset: 3px;
+  border-radius: 50%;
+  border: 1px solid rgba(255,255,255,0.06);
+}
+.coin::after {
+  content: '';
+  position: absolute; inset: 0;
+  border-radius: 50%;
+  background: linear-gradient(135deg, rgba(255,255,255,0.15) 0%, transparent 50%, rgba(0,0,0,0.1) 100%);
+}
+
+.coin-btc {
+  width: 110px; height: 110px;
+  background: radial-gradient(circle at 38% 35%, #f7931a 0%, #e8850f 40%, #c06a08 70%, #8a4a04 100%);
+  color: #fff; font-size: 40px;
+  box-shadow: inset 0 -6px 20px rgba(0,0,0,0.4), 0 0 50px rgba(247,147,26,0.2), 0 0 80px rgba(34,197,94,0.15);
+  animation: orbitBtc 28s linear infinite;
+}
+
+.coin-eth {
+  width: 90px; height: 90px;
+  background: radial-gradient(circle at 38% 35%, #627eea 0%, #4a64d8 40%, #3451c2 70%, #2338a0 100%);
+  color: #fff; font-size: 32px;
+  box-shadow: inset 0 -5px 18px rgba(0,0,0,0.4), 0 0 45px rgba(98,126,234,0.2), 0 0 70px rgba(34,197,94,0.12);
+  animation: orbitEth 34s linear infinite reverse;
+}
+
+.coin-sol {
+  width: 72px; height: 72px;
+  background: radial-gradient(circle at 38% 35%, #9945ff 0%, #8030e8 40%, #6820d0 70%, #4a10a8 100%);
+  color: #fff; font-size: 26px;
+  box-shadow: inset 0 -4px 14px rgba(0,0,0,0.4), 0 0 40px rgba(153,69,255,0.2), 0 0 60px rgba(34,197,94,0.12);
+  animation: orbitSol 22s linear infinite;
+}
+
+.coin-doge {
+  width: 58px; height: 58px;
+  background: radial-gradient(circle at 38% 35%, #c3a634 0%, #b09028 40%, #987820 70%, #705810 100%);
+  color: #fff; font-size: 20px;
+  box-shadow: inset 0 -3px 10px rgba(0,0,0,0.4), 0 0 35px rgba(195,166,52,0.2), 0 0 55px rgba(34,197,94,0.12);
+  animation: orbitDoge 26s linear infinite reverse;
+}
+
+.coin-ada {
+  width: 50px; height: 50px;
+  background: radial-gradient(circle at 38% 35%, #0033ad 0%, #0028a0 40%, #002090 70%, #001870 100%);
+  color: #fff; font-size: 18px;
+  box-shadow: inset 0 -3px 10px rgba(0,0,0,0.4), 0 0 30px rgba(0,51,173,0.2), 0 0 50px rgba(34,197,94,0.12);
+  animation: orbitAda 30s linear infinite;
+}
+
+.coin-dot {
+  width: 40px; height: 40px;
+  background: radial-gradient(circle at 38% 35%, #e6007a 0%, #cc006e 40%, #b00062 70%, #88004a 100%);
+  color: #fff; font-size: 15px;
+  box-shadow: inset 0 -2px 8px rgba(0,0,0,0.4), 0 0 25px rgba(230,0,122,0.2), 0 0 45px rgba(34,197,94,0.12);
+  animation: orbitDot 20s linear infinite reverse;
+}
+
+.coin-xrp {
+  width: 32px; height: 32px;
+  background: radial-gradient(circle at 38% 35%, #00aae4 0%, #0098d0 40%, #0080b8 70%, #006090 100%);
+  color: #fff; font-size: 12px;
+  box-shadow: inset 0 -2px 6px rgba(0,0,0,0.4), 0 0 20px rgba(0,170,228,0.2), 0 0 40px rgba(34,197,94,0.12);
+  animation: orbitXrp 32s linear infinite;
+}
+
+@keyframes orbitBtc {
+  0%   { transform: translate(0, 0) rotate(0deg) scale(1); }
+  12%  { transform: translate(30vw, 8vh) rotate(45deg) scale(0.9); }
+  25%  { transform: translate(60vw, -5vh) rotate(90deg) scale(0.85); }
+  37%  { transform: translate(85vw, 20vh) rotate(135deg) scale(0.8); }
+  50%  { transform: translate(70vw, 60vh) rotate(180deg) scale(0.75); }
+  62%  { transform: translate(40vw, 80vh) rotate(225deg) scale(0.8); }
+  75%  { transform: translate(10vw, 65vh) rotate(270deg) scale(0.85); }
+  87%  { transform: translate(-5vw, 30vh) rotate(315deg) scale(0.9); }
+  100% { transform: translate(0, 0) rotate(360deg) scale(1); }
+}
+@keyframes orbitEth {
+  0%   { transform: translate(0, 0) rotate(0deg) scale(1); }
+  14%  { transform: translate(-25vw, 25vh) rotate(-50deg) scale(0.85); }
+  28%  { transform: translate(10vw, 70vh) rotate(-100deg) scale(0.8); }
+  42%  { transform: translate(50vw, 85vh) rotate(-150deg) scale(0.75); }
+  56%  { transform: translate(80vw, 55vh) rotate(-200deg) scale(0.8); }
+  70%  { transform: translate(65vw, 10vh) rotate(-250deg) scale(0.85); }
+  84%  { transform: translate(25vw, -10vh) rotate(-300deg) scale(0.9); }
+  100% { transform: translate(0, 0) rotate(-360deg) scale(1); }
+}
+@keyframes orbitSol {
+  0%   { transform: translate(0, 0) rotate(0deg) scale(1); }
+  20%  { transform: translate(50vw, -15vh) rotate(72deg) scale(0.85); }
+  40%  { transform: translate(90vw, 40vh) rotate(144deg) scale(0.75); }
+  60%  { transform: translate(55vw, 85vh) rotate(216deg) scale(0.8); }
+  80%  { transform: translate(-5vw, 50vh) rotate(288deg) scale(0.9); }
+  100% { transform: translate(0, 0) rotate(360deg) scale(1); }
+}
+@keyframes orbitDoge {
+  0%   { transform: translate(0, 0) rotate(0deg) scale(1); }
+  16%  { transform: translate(35vw, 70vh) rotate(-60deg) scale(0.85); }
+  33%  { transform: translate(75vw, 45vh) rotate(-120deg) scale(0.78); }
+  50%  { transform: translate(80vw, -10vh) rotate(-180deg) scale(0.82); }
+  66%  { transform: translate(40vw, -15vh) rotate(-240deg) scale(0.88); }
+  83%  { transform: translate(-10vw, 20vh) rotate(-300deg) scale(0.92); }
+  100% { transform: translate(0, 0) rotate(-360deg) scale(1); }
+}
+@keyframes orbitAda {
+  0%   { transform: translate(0, 0) rotate(0deg) scale(1); }
+  25%  { transform: translate(45vw, 80vh) rotate(90deg) scale(0.8); }
+  50%  { transform: translate(85vw, 25vh) rotate(180deg) scale(0.75); }
+  75%  { transform: translate(20vw, -10vh) rotate(270deg) scale(0.9); }
+  100% { transform: translate(0, 0) rotate(360deg) scale(1); }
+}
+@keyframes orbitDot {
+  0%   { transform: translate(0, 0) rotate(0deg) scale(1); }
+  20%  { transform: translate(-20vw, 55vh) rotate(-72deg) scale(0.85); }
+  40%  { transform: translate(30vw, 90vh) rotate(-144deg) scale(0.78); }
+  60%  { transform: translate(75vw, 60vh) rotate(-216deg) scale(0.82); }
+  80%  { transform: translate(55vw, 5vh) rotate(-288deg) scale(0.9); }
+  100% { transform: translate(0, 0) rotate(-360deg) scale(1); }
+}
+@keyframes orbitXrp {
+  0%   { transform: translate(0, 0) rotate(0deg) scale(1); }
+  33%  { transform: translate(60vw, 80vh) rotate(120deg) scale(0.8); }
+  66%  { transform: translate(90vw, 10vh) rotate(240deg) scale(0.85); }
+  100% { transform: translate(0, 0) rotate(360deg) scale(1); }
+}
+
+/* ── Bottom accent ── */
+.bottom-line {
+  position: fixed; bottom: 0; left: 0; width: 100%; height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.08), transparent);
+  z-index: 3;
+}
+
+/* ── Section divider ── */
+.section-divider {
+  width: 100%; height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.06), transparent);
+}
+
+/* ── Shared button shimmer ── */
+.btn-shimmer {
+  position: relative; overflow: hidden;
+}
+.btn-shimmer::after {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(135deg, transparent 40%, rgba(34,197,94,0.15) 50%, transparent 60%);
+  transform: translateX(-100%); transition: transform 0.5s cubic-bezier(0.23,1,0.32,1);
+}
+.btn-shimmer:hover::after { transform: translateX(100%); }
+
+/* ── Futuristic Warp Transitions ── */
+@keyframes warpIn {
+  0% { opacity: 0; transform: scale(0.8) translateY(30px); filter: blur(10px) brightness(2); }
+  60% { opacity: 1; transform: scale(1.02) translateY(-4px); filter: blur(0) brightness(1.1); }
+  100% { opacity: 1; transform: scale(1) translateY(0); filter: blur(0) brightness(1); }
+}
+@keyframes warpInSmall {
+  0% { opacity: 0; transform: translateY(20px) scale(0.95); filter: blur(6px); }
+  100% { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
+}
+@keyframes scanLine {
+  0% { top: -2px; opacity: 0; }
+  10% { opacity: 1; }
+  90% { opacity: 1; }
+  100% { top: calc(100% + 2px); opacity: 0; }
+}
+@keyframes glowPulse {
+  0%, 100% { box-shadow: 0 0 15px rgba(34,197,94,0.15), 0 0 30px rgba(34,197,94,0.05); }
+  50% { box-shadow: 0 0 25px rgba(34,197,94,0.25), 0 0 50px rgba(34,197,94,0.1); }
+}
+@keyframes hyperspace {
+  0% { transform: scale(1); box-shadow: 0 4px 20px rgba(34,197,94,0.25); }
+  50% { transform: scale(1.03); box-shadow: 0 0 40px rgba(34,197,94,0.5), 0 0 80px rgba(34,197,94,0.2), inset 0 0 20px rgba(34,197,94,0.1); }
+  100% { transform: scale(1); box-shadow: 0 4px 20px rgba(34,197,94,0.25); }
+}
+@keyframes energyRipple {
+  0% { box-shadow: 0 0 0 0 rgba(34,197,94,0.4); }
+  100% { box-shadow: 0 0 0 20px rgba(34,197,94,0); }
+}
+@keyframes floatFuturistic {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  25% { transform: translateY(-8px) rotate(0.5deg); }
+  50% { transform: translateY(-3px) rotate(-0.3deg); }
+  75% { transform: translateY(-10px) rotate(0.2deg); }
+}
+@keyframes textGlow {
+  0%, 100% { text-shadow: 0 0 20px rgba(34,197,94,0.2); }
+  50% { text-shadow: 0 0 40px rgba(34,197,94,0.4), 0 0 80px rgba(34,197,94,0.15); }
+}
+@keyframes slideInLeft {
+  0% { opacity: 0; transform: translateX(-40px); filter: blur(4px); }
+  100% { opacity: 1; transform: translateX(0); filter: blur(0); }
+}
+@keyframes slideInRight {
+  0% { opacity: 0; transform: translateX(40px); filter: blur(4px); }
+  100% { opacity: 1; transform: translateX(0); filter: blur(0); }
+}
+@keyframes fadeInUp {
+  0% { opacity: 0; transform: translateY(40px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+@keyframes borderGlow {
+  0%, 100% { border-color: rgba(34,197,94,0.12); }
+  50% { border-color: rgba(34,197,94,0.35); }
+}
+@keyframes warpButton {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+@keyframes portalOpen {
+  0% { clip-path: circle(0% at 50% 50%); }
+  100% { clip-path: circle(100% at 50% 50%); }
+}
+
+/* ── Logo Orbital ── */
+.logo-orbital {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 24px;
+}
+.logo-orbital img {
+  position: relative; z-index: 2;
+  filter: brightness(1.1) drop-shadow(0 0 20px rgba(34,197,94,0.4));
+  transition: filter 0.4s, transform 0.4s cubic-bezier(0.23,1,0.32,1);
+}
+.logo-orbital:hover img {
+  filter: brightness(1.3) drop-shadow(0 0 40px rgba(34,197,94,0.6)) drop-shadow(0 0 80px rgba(34,197,94,0.3));
+  transform: scale(1.05);
+}
+.logo-glow {
+  position: absolute;
+  width: 120%; height: 120%;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(34,197,94,0.15) 0%, transparent 70%);
+  animation: glowPulse 3s ease-in-out infinite;
+  pointer-events: none;
+}
+.logo-anillo {
+  position: absolute;
+  border-radius: 50%;
+  border: 1px solid rgba(34,197,94,0.15);
+  pointer-events: none;
+}
+.logo-anillo-1 {
+  width: 140%; height: 140%;
+  animation: orbitRing1 12s linear infinite;
+  border-style: dashed;
+  border-color: rgba(34,197,94,0.12);
+}
+.logo-anillo-2 {
+  width: 180%; height: 180%;
+  animation: orbitRing2 18s linear infinite reverse;
+  border-color: rgba(34,197,94,0.08);
+}
+.logo-anillo-3 {
+  width: 220%; height: 220%;
+  animation: orbitRing3 25s linear infinite;
+  border-style: dotted;
+  border-color: rgba(34,197,94,0.06);
+}
+@keyframes orbitRing1 {
+  0% { transform: rotate(0deg) rotateX(60deg); }
+  100% { transform: rotate(360deg) rotateX(60deg); }
+}
+@keyframes orbitRing2 {
+  0% { transform: rotate(0deg) rotateX(70deg) rotateZ(20deg); }
+  100% { transform: rotate(360deg) rotateX(70deg) rotateZ(20deg); }
+}
+@keyframes orbitRing3 {
+  0% { transform: rotate(0deg) rotateX(55deg) rotateZ(-15deg); }
+  100% { transform: rotate(360deg) rotateX(55deg) rotateZ(-15deg); }
+}
+
+/* ── Responsive coins ── */
+@media(max-width:640px) {
+  .coin-btc { width: 70px; height: 70px; font-size: 24px; }
+  .coin-eth { width: 55px; height: 55px; font-size: 20px; }
+  .coin-sol { width: 45px; height: 45px; font-size: 16px; }
+  .coin-doge { width: 38px; height: 38px; font-size: 13px; }
+  .coin-ada { width: 32px; height: 32px; font-size: 11px; }
+  .coin-dot { width: 26px; height: 26px; font-size: 9px; }
+  .coin-xrp { width: 20px; height: 20px; font-size: 8px; }
+}
