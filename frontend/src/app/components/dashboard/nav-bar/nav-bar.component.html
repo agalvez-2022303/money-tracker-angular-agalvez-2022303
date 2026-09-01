@@ -1,0 +1,24 @@
+<header class="navbar">
+  <a class="navbar__brand" routerLink="/dashboard" aria-label="Money Tracker - Ir al inicio">
+    <svg lucideLayoutDashboard class="navbar__logo" size="24"></svg>
+    <span class="navbar__nombre">Money Tracker</span>
+  </a>
+
+  <app-navigation class="navbar__nav"></app-navigation>
+
+  <div class="navbar__derecha">
+    @if (userName()) {
+      <span class="navbar__usuario" aria-hidden="true">{{ userName() }}</span>
+    }
+    <button
+      type="button"
+      class="navbar__logout"
+      (click)="onCerrarSesion()"
+      aria-label="Cerrar sesión"
+      title="Cerrar sesión"
+    >
+      <svg lucideLogOut size="20"></svg>
+      <span class="navbar__logout-texto">Cerrar sesión</span>
+    </button>
+  </div>
+</header>

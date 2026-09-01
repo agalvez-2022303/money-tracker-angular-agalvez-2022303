@@ -1,0 +1,25 @@
+<section class="actividad-reciente" aria-labelledby="actividad-reciente-titulo">
+  <header class="actividad-reciente__cabecera">
+    <h2 id="actividad-reciente-titulo" class="actividad-reciente__titulo">
+      <svg lucideClock class="actividad-reciente__icono" size="18" aria-hidden="true"></svg>
+      Actividad reciente
+    </h2>
+  </header>
+
+  @if (transactions().length > 0) {
+    <ul class="actividad-reciente__lista">
+      @for (tx of transactions(); track tx.id) {
+        <app-activity-item [transaccion]="tx"></app-activity-item>
+      }
+    </ul>
+  } @else {
+    <div class="actividad-reciente__vacio">
+      <span class="actividad-reciente__vacio-icono" aria-hidden="true">
+        <svg lucideClock size="24"></svg>
+      </span>
+      <p class="actividad-reciente__vacio-texto">
+        Aún no hay actividad reciente. Usa el botón + para agregar tu primera transacción.
+      </p>
+    </div>
+  }
+</section>

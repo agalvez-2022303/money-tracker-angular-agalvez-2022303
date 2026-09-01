@@ -1,0 +1,84 @@
+:host {
+  display: contents;
+}
+
+.actividad {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 8px;
+  border-radius: 10px;
+  transition: background 0.15s;
+}
+
+.actividad:hover {
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.actividad__icono-caja {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  flex-shrink: 0;
+  color: #f87171;
+  background: rgba(239, 68, 68, 0.12);
+}
+
+.actividad__icono-caja--ingreso {
+  color: #22C55E;
+  background: rgba(34, 197, 94, 0.12);
+}
+
+.actividad__info {
+  flex: 1;
+  min-width: 0;
+}
+
+.actividad__descripcion {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--fg);
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.actividad__meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 2px 0 0;
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.actividad__categoria {
+  color: #6ee7a0;
+}
+
+.actividad__monto {
+  font-size: 14px;
+  font-weight: 600;
+  white-space: nowrap;
+  margin-left: auto;
+}
+
+.actividad__monto--ingreso {
+  color: #22C55E;
+}
+
+.actividad__monto--gasto {
+  color: #f87171;
+}
+
+@media (max-width: 640px) {
+  .actividad__meta {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 2px;
+  }
+}

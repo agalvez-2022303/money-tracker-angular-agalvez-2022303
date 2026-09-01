@@ -1,0 +1,47 @@
+:host {
+  position: fixed;
+  right: 28px;
+  bottom: 28px;
+  z-index: 50;
+}
+
+.fab {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  border: none;
+  background: #22C55E;
+  color: #040806;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 8px 24px rgba(34, 197, 94, 0.35);
+  transition: transform 0.15s, box-shadow 0.2s, background 0.2s;
+}
+
+.fab:hover {
+  transform: translateY(-2px) scale(1.03);
+  box-shadow: 0 12px 32px rgba(34, 197, 94, 0.45);
+}
+
+.fab:focus-visible {
+  outline: 3px solid rgba(34, 197, 94, 0.5);
+  outline-offset: 3px;
+}
+
+.fab:active {
+  transform: scale(0.95);
+}
+
+@media (max-width: 640px) {
+  :host {
+    right: 20px;
+    bottom: 20px;
+  }
+
+  .fab {
+    width: 56px;
+    height: 56px;
+  }
+}

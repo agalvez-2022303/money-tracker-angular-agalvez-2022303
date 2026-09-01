@@ -1,0 +1,16 @@
+<article class="tarjeta tarjeta--gasto">
+  <div class="tarjeta__icono-caja tarjeta__icono-caja--rojo" aria-hidden="true">
+    <svg lucideTrendingDown size="22"></svg>
+  </div>
+
+  <div class="tarjeta__cuerpo">
+    <h2 class="tarjeta__etiqueta">Gastos mensuales</h2>
+
+    @if (expenses() != null) {
+      <p class="tarjeta__valor">{{ expenses()! | currency: 'GTQ' }}</p>
+      <p class="tarjeta__periodo">{{ periodLabel() }}</p>
+    } @else {
+      <p class="estado-vacio">Sin gastos registrados</p>
+    }
+  </div>
+</article>
