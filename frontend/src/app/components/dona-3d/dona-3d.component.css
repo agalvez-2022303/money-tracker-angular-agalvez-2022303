@@ -1,0 +1,43 @@
+:host { display: block; }
+.dona { display: flex; flex-direction: column; align-items: center; gap: 24px; }
+
+.dona__escena {
+  position: relative; width: 220px; height: 220px;
+  transform: perspective(600px) rotateX(12deg);
+  transition: transform 0.5s cubic-bezier(0.23,1,0.32,1);
+}
+.dona__escena:hover { transform: perspective(600px) rotateX(8deg) rotateY(6deg); }
+
+.dona__svg { width: 100%; height: 100%; transform: rotate(-90deg); }
+.dona__base { stroke: rgba(255,255,255,0.06); stroke-width: 24; }
+.dona__segmento {
+  stroke-width: 24;
+  filter: drop-shadow(0 3px 4px rgba(0,0,0,0.3));
+  transition: stroke-dashoffset 0.8s cubic-bezier(0.23,1,0.32,1);
+  transform-origin: center;
+}
+.dona__centro {
+  position: absolute; inset: 0;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  pointer-events: none;
+}
+.dona__total { font-size: 22px; font-weight: 800; color: var(--fg); letter-spacing: -0.02em; }
+.dona__label { font-family: var(--font-mono); font-size: 9px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
+
+.dona__leyenda { list-style: none; margin: 0; padding: 0; width: 100%; display: flex; flex-direction: column; gap: 8px; }
+.dona__item {
+  display: grid; grid-template-columns: 10px 1fr auto auto; gap: 10px; align-items: center;
+  font-size: 13px;
+}
+.dona__swatch { width: 10px; height: 10px; border-radius: 3px; }
+.dona__nombre { color: var(--fg); }
+.dona__monto { color: var(--muted); font-family: var(--font-mono); font-size: 12px; }
+.dona__pct { color: #22C55E; font-weight: 700; font-size: 12px; min-width: 38px; text-align: right; }
+
+.dona--vacio .dona__vacio {
+  padding: 40px 20px; color: var(--muted); font-size: 14px; text-align: center;
+}
+
+@media (max-width: 480px) {
+  .dona__escena { width: 180px; height: 180px; }
+}
