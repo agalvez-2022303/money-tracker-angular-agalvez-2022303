@@ -1,0 +1,68 @@
+<section class="paso">
+  <header class="paso__cabecera">
+    <span class="paso__numero">Paso 3 de 4</span>
+    <h2 class="paso__titulo">Tus ingresos y gastos</h2>
+    <p class="paso__subtitulo">Este análisis nos permite calcular cuánto puedes ahorrar cada mes.</p>
+  </header>
+
+  <form class="paso__formulario" (ngSubmit)="onContinuar()">
+    <div class="campo">
+      <label class="campo__etiqueta" for="ingresoMensual">Ingreso mensual neto (GTQ) *</label>
+      <div class="monto">
+        <span class="monto__simbolo">Q</span>
+        <input id="ingresoMensual" type="number" class="campo__input campo__input--monto"
+          placeholder="0.00" min="0" step="0.01"
+          [(ngModel)]="ingresoMensual" name="ingresoMensual" required />
+      </div>
+    </div>
+
+    <div class="campo">
+      <label class="campo__etiqueta" for="gastoFijoMensual">Gastos fijos (renta, servicios, suscripciones)</label>
+      <input id="gastoFijoMensual" type="number" class="campo__input" placeholder="0.00" min="0" step="0.01"
+        [(ngModel)]="gastoFijoMensual" name="gastoFijoMensual" />
+    </div>
+
+    <div class="campo">
+      <label class="campo__etiqueta" for="gastoVariableMensual">Gastos variables (comida, transporte, salud)</label>
+      <input id="gastoVariableMensual" type="number" class="campo__input" placeholder="0.00" min="0" step="0.01"
+        [(ngModel)]="gastoVariableMensual" name="gastoVariableMensual" />
+    </div>
+
+    <div class="campo">
+      <label class="campo__etiqueta" for="gastoEntretenimiento">Entretenimiento (ocio, viajes, hobbies)</label>
+      <input id="gastoEntretenimiento" type="number" class="campo__input" placeholder="0.00" min="0" step="0.01"
+        [(ngModel)]="gastoEntretenimiento" name="gastoEntretenimiento" />
+    </div>
+
+    <div class="paso__rejilla">
+      <div class="campo">
+        <label class="campo__etiqueta" for="deudas">Pagos mensuales de deudas</label>
+        <input id="deudas" type="number" class="campo__input" placeholder="0.00" min="0" step="0.01"
+          [(ngModel)]="deudas" name="deudas" />
+      </div>
+      <div class="campo">
+        <label class="campo__etiqueta" for="dependientes">Personas que dependen de ti</label>
+        <input id="dependientes" type="number" class="campo__input" placeholder="0" min="0" step="1"
+          [(ngModel)]="dependientes" name="dependientes" />
+      </div>
+    </div>
+
+    @if (ingresoMensual != null) {
+      <div class="resumen" [class.resumen--positivo]="disponibilidad >= 0" [class.resumen--negativo]="disponibilidad < 0">
+        <div class="resumen__fila">
+          <span>Gastos totales estimados</span>
+          <span>Q {{ gastosTotales | number: '1.2-2' }}</span>
+        </div>
+        <div class="resumen__fila resumen__fila--destacado">
+          <span>Dinero disponible para ahorrar/invertir</span>
+          <span>Q {{ disponibilidad | number: '1.2-2' }}</span>
+        </div>
+      </div>
+    }
+
+    <div class="paso__acciones">
+      <button type="button" class="boton boton--secundario" (click)="atras.emit()">Atrás</button>
+      <button type="submit" class="boton boton--primario" [disabled]="ingresoMensual == null || ingresoMensual < 0">Continuar</button>
+    </div>
+  </form>
+</section>
