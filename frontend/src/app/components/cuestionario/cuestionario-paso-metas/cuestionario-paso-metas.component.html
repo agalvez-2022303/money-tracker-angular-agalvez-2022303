@@ -1,0 +1,85 @@
+<section class="paso">
+  <header class="paso__cabecera">
+    <span class="paso__numero">Paso 2 de 4</span>
+    <h2 class="paso__titulo">Tus metas financieras</h2>
+    <p class="paso__subtitulo">Selecciona tu meta principal y tu perfil de riesgo.</p>
+  </header>
+
+  <form class="paso__formulario" (ngSubmit)="onContinuar()">
+    <div class="campo">
+      <label class="campo__etiqueta">Meta principal *</label>
+      <div class="chips">
+        @for (meta of metasComunes; track meta) {
+          <button
+            type="button"
+            class="chip"
+            [class.chip--activo]="metaPrincipal === meta"
+            (click)="alSeleccionarMeta(meta)"
+          >
+            {{ meta }}
+          </button>
+        }
+      </div>
+      <div class="campo">
+        <input
+          type="text"
+          class="campo__input"
+          placeholder="O escribe tu propia meta..."
+          [(ngModel)]="metaPrincipal"
+          name="metaPersonalizada"
+        />
+      </div>
+      @if (!metaPrincipal) {
+        <span class="campo__ayuda">Selecciona o escribe al menos una meta.</span>
+      }
+    </div>
+
+    <div class="campo">
+      <label class="campo__etiqueta">¿En qué plazo quieres alcanzarla?</label>
+      <div class="segmento">
+        <button type="button" class="segmento__btn" [class.segmento__btn--activo]="plazo === 'corto'" (click)="plazo = 'corto'">
+          Corto (&#60; 1 año)
+        </button>
+        <button type="button" class="segmento__btn" [class.segmento__btn--activo]="plazo === 'mediano'" (click)="plazo = 'mediano'">
+          Mediano (1-5 años)
+        </button>
+        <button type="button" class="segmento__btn" [class.segmento__btn--activo]="plazo === 'largo'" (click)="plazo = 'largo'">
+          Largo (&#62; 5 años)
+        </button>
+      </div>
+    </div>
+
+    <div class="campo">
+      <label class="campo__etiqueta">Perfil de riesgo</label>
+      <div class="perfiles">
+        @for (perfil of perfiles; track perfil.valor) {
+          <button
+            type="button"
+            class="perfil"
+            [class.perfil--activo]="perfilRiesgo === perfil.valor"
+            (click)="perfilRiesgo = perfil.valor"
+          >
+            <span class="perfil__titulo">{{ perfil.etiqueta }}</span>
+            <span class="perfil__desc">{{ perfil.desc }}</span>
+          </button>
+        }
+      </div>
+    </div>
+
+    <div class="campo campo--checks">
+      <label class="check">
+        <input type="checkbox" [(ngModel)]="sabe_Ahorrar" name="sabeAhorrar" />
+        <span>Ya tengo un hábito de ahorro mensual</span>
+      </label>
+      <label class="check">
+        <input type="checkbox" [(ngModel)]="llevaPresupuesto" name="llevaPresupuesto" />
+        <span>Llevo un presupuesto de mis gastos</span>
+      </label>
+    </div>
+
+    <div class="paso__acciones">
+      <button type="button" class="boton boton--secundario" (click)="atras.emit()">Atrás</button>
+      <button type="submit" class="boton boton--primario" [disabled]="!metaPrincipal">Continuar</button>
+    </div>
+  </form>
+</section>
