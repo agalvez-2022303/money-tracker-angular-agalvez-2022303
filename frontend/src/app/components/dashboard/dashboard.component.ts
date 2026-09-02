@@ -10,6 +10,7 @@ import { MonthlyExpensesCardComponent } from './monthly-expenses-card/monthly-ex
 import { RecentActivityComponent } from './recent-activity/recent-activity.component';
 import { AddActivityButtonComponent } from './add-activity-button/add-activity-button.component';
 import { TransactionFormComponent } from './transaction-form/transaction-form.component';
+import { DashboardHero3DComponent } from './dashboard-hero-3d/dashboard-hero-3d.component';
 
 @Component({
   selector: 'app-dashboard',
@@ -23,6 +24,7 @@ import { TransactionFormComponent } from './transaction-form/transaction-form.co
     RecentActivityComponent,
     AddActivityButtonComponent,
     TransactionFormComponent,
+    DashboardHero3DComponent,
   ],
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css'],
