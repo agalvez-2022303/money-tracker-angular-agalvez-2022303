@@ -1,0 +1,27 @@
+<li class="actividad">
+  <span class="actividad__icono-caja" [class.actividad__icono-caja--ingreso]="esIngreso()" aria-hidden="true">
+    @if (esIngreso()) {
+      <svg lucideArrowDownLeft size="18"></svg>
+    } @else {
+      <svg lucideArrowUpRight size="18"></svg>
+    }
+  </span>
+
+  <div class="actividad__info">
+    <p class="actividad__descripcion">{{ transaccion().description }}</p>
+    <p class="actividad__meta">
+      @if (transaccion().category) {
+        <span class="actividad__categoria">{{ transaccion().category }}</span>
+      }
+      <span class="actividad__fecha">{{ fecha() }}</span>
+    </p>
+  </div>
+
+  <span
+    class="actividad__monto"
+    [class.actividad__monto--ingreso]="esIngreso()"
+    [class.actividad__monto--gasto]="!esIngreso()"
+  >
+    {{ esIngreso() ? '+' : '-' }}{{ transaccion().amount | currency: 'GTQ' }}
+  </span>
+</li>

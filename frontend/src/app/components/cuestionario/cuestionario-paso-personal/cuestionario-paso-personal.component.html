@@ -1,0 +1,54 @@
+<section class="paso">
+  <header class="paso__cabecera">
+    <span class="paso__numero">Paso 1 de 4</span>
+    <h2 class="paso__titulo">Cuéntanos sobre ti</h2>
+    <p class="paso__subtitulo">Estos datos nos ayudan a personalizar tu experiencia financiera.</p>
+  </header>
+
+  <form class="paso__formulario" (ngSubmit)="onContinuar()">
+    <div class="paso__rejilla">
+      <div class="campo">
+        <label class="campo__etiqueta" for="nombre">Nombre *</label>
+        <input id="nombre" type="text" class="campo__input" placeholder="Tu nombre" [(ngModel)]="nombre" name="nombre" required />
+      </div>
+      <div class="campo">
+        <label class="campo__etiqueta" for="apellido">Apellido *</label>
+        <input id="apellido" type="text" class="campo__input" placeholder="Tu apellido" [(ngModel)]="apellido" name="apellido" required />
+      </div>
+    </div>
+
+    <div class="campo">
+      <label class="campo__etiqueta" for="email">Correo electrónico *</label>
+      <input id="email" type="email" class="campo__input" placeholder="tu@email.com" [(ngModel)]="email" name="email" required />
+    </div>
+
+    <div class="paso__rejilla">
+      <div class="campo">
+        <label class="campo__etiqueta" for="telefono">Teléfono</label>
+        <input id="telefono" type="tel" class="campo__input" placeholder="+502 0000 0000" [(ngModel)]="telefono" name="telefono" />
+      </div>
+      <div class="campo">
+        <label class="campo__etiqueta" for="fechaNacimiento">Fecha de nacimiento</label>
+        <input id="fechaNacimiento" type="date" class="campo__input" [(ngModel)]="fechaNacimiento" name="fechaNacimiento" />
+      </div>
+    </div>
+
+    <div class="campo">
+      <label class="campo__etiqueta" for="ocupacion">Ocupación</label>
+      <select id="ocupacion" class="campo__input campo__select" [(ngModel)]="ocupacion" name="ocupacion">
+        @for (opcion of ocupaciones; track opcion.valor) {
+          <option [value]="opcion.valor">{{ opcion.etiqueta }}</option>
+        }
+      </select>
+    </div>
+
+    @if (error) {
+      <div class="paso__error" role="alert">{{ error }}</div>
+    }
+
+    <div class="paso__acciones">
+      <button type="button" class="boton boton--secundario" (click)="volver.emit()">Cancelar</button>
+      <button type="submit" class="boton boton--primario">Continuar</button>
+    </div>
+  </form>
+</section>

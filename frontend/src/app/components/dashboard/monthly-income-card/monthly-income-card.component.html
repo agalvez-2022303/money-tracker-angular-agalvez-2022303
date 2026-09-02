@@ -1,0 +1,16 @@
+<article class="tarjeta tarjeta--ingreso">
+  <div class="tarjeta__icono-caja tarjeta__icono-caja--verde" aria-hidden="true">
+    <svg lucideTrendingUp size="22"></svg>
+  </div>
+
+  <div class="tarjeta__cuerpo">
+    <h2 class="tarjeta__etiqueta">Ingreso mensual</h2>
+
+    @if (income() != null) {
+      <p class="tarjeta__valor">{{ income()! | currency: 'GTQ' }}</p>
+      <p class="tarjeta__periodo">{{ periodLabel() }}</p>
+    } @else {
+      <p class="estado-vacio">Sin ingresos registrados</p>
+    }
+  </div>
+</article>

@@ -1,0 +1,22 @@
+:host { display: block; }
+.desglose {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 16px; padding: 20px;
+  height: 100%;
+}
+.desglose__cabecera { display: flex; align-items: center; gap: 10px; margin-bottom: 18px; }
+.desglose__icono {
+  width: 36px; height: 36px; border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  background: rgba(34,197,94,0.12); color: #22C55E;
+}
+.desglose__titulo { font-size: 15px; font-weight: 700; color: var(--fg); margin: 0; }
+
+.desglose__vacio {
+  display: flex; flex-direction: column; align-items: center; gap: 12px;
+  padding: 40px 20px; text-align: center; color: var(--muted); font-size: 14px;
+  border: 1px dashed var(--border); border-radius: 10px;
+}
+.desglose__vacio-icono {
+  font-size: 28px; color: rgba(34,197,94,0.4);
+}

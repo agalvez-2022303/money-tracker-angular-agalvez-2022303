@@ -1,0 +1,89 @@
+<div class="cursor-dot"></div>
+<div class="cursor-ring"></div>
+@for (o of ondas; track o.id) {
+  <div class="click-ripple" [style.left]="o.x + 'px'" [style.top]="o.y + 'px'"></div>
+}
+<div class="scanlines"></div>
+
+<div class="stars">
+  @for (e of estrellas; track e.id) {
+    <div class="star" [style.left.%]="e.l" [style.top.%]="e.t" [style.width.px]="e.s" [style.height.px]="e.s" [style.--d]="e.d" [style.--dl]="e.dl"></div>
+  }
+</div>
+
+<div class="login-layout">
+  <div class="login-izquierda">
+    <div class="login-branding">
+      <img src="assets/logo.png" alt="Money Tracker" class="login-logo-grande"/>
+      <div class="login-cubo-3d" aria-hidden="true">
+        <app-three-d-cube></app-three-d-cube>
+      </div>
+      <h1 class="login-titulo-principal">Money Tracker</h1>
+      <p class="login-sub-principal">Plataforma de gestion financiera de nueva generacion.</p>
+      <div class="login-features">
+        <div class="login-feature">
+          <span class="login-feature-icono">&#10003;</span>
+          <span>Control total de tus finanzas</span>
+        </div>
+        <div class="login-feature">
+          <span class="login-feature-icono">&#10003;</span>
+          <span>Dashboard en tiempo real</span>
+        </div>
+        <div class="login-feature">
+          <span class="login-feature-icono">&#10003;</span>
+          <span>Sin comisiones ocultas</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="login-derecha">
+    <div class="tarjeta-login">
+      
+
+      <div class="login-formulario-header">
+        <h2 class="login-formulario-titulo">Iniciar sesion</h2>
+        <p class="login-formulario-sub">Ingresa tus credenciales para acceder</p>
+      </div>
+
+      <form class="login-formulario" (ngSubmit)="enviar()">
+        <div class="grupo-campo">
+          <label class="campo-etiqueta" for="correo">Correo electronico</label>
+          <input id="correo" type="email" class="campo-entrada" placeholder="tu@email.com" [(ngModel)]="correo" name="correo" required autocomplete="email"/>
+        </div>
+        <div class="grupo-campo">
+          <label class="campo-etiqueta" for="contrasena">Contrasena</label>
+          <input id="contrasena" type="password" class="campo-entrada" placeholder="••••••••" [(ngModel)]="contrasena" name="contrasena" required autocomplete="current-password"/>
+        </div>
+        <a href="#" class="enlace-olvidar">¿Olvidaste tu contrasena?</a>
+
+        @if (mensajeError()) {
+          <div class="error-toast">{{ mensajeError() }}</div>
+        }
+
+        <button type="submit" class="boton-login btn-shimmer" [disabled]="estaCargando()">
+          @if (estaCargando()) {
+            Iniciando sesion...
+          } @else {
+            Iniciar sesion
+          }
+        </button>
+      </form>
+
+      <div class="login-separador">
+        <div class="login-separador-linea"></div>
+        <span class="login-separador-texto">o</span>
+        <div class="login-separador-linea"></div>
+      </div>
+
+      <div class="login-pista">
+        Solo los usuarios registrados pueden acceder.
+      </div>
+
+      <a class="login-volver" (click)="volver()">
+        <svg lucideArrowLeft class="login-volver-icono" size="16" aria-hidden="true"></svg>
+        <span>Volver al inicio</span>
+      </a>
+    </div>
+  </div>
+</div>

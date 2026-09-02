@@ -1,0 +1,55 @@
+<div class="dashboard">
+  <app-nav-bar [userName]="usuario()?.name ?? ''" (cerrarSesion)="cerrarSesion()"></app-nav-bar>
+
+  <main class="dashboard__contenido">
+    <header class="dashboard__saludo">
+      <div class="dashboard__saludo-cabecera">
+        <div>
+          <h1 class="dashboard__saludo-titulo">
+            Hola, {{ usuario()?.name ?? 'usuario' }}
+          </h1>
+          <p class="dashboard__saludo-sub">Resumen de tus finanzas</p>
+        </div>
+        <app-dashboard-hero-3d class="dashboard__hero-3d"></app-dashboard-hero-3d>
+      </div>
+    </header>
+
+    @if (estado() === 'loading') {
+      <div class="dashboard__estado" role="status" aria-live="polite">
+        <span class="spinner" aria-hidden="true"></span>
+        <p class="dashboard__estado-texto">Cargando tu informacion...</p>
+      </div>
+    } @else if (estado() === 'error') {
+      <div class="dashboard__estado" role="alert">
+        <p class="dashboard__estado-texto">No se pudo cargar la informacion.</p>
+        @if (error()) {
+          <p class="dashboard__estado-detalle">{{ error() }}</p>
+        }
+      </div>
+    } @else {
+      <div class="dashboard__rejilla">
+        <div class="dashboard__meta">
+          <app-savings-goal-card [meta]="metas()"></app-savings-goal-card>
+        </div>
+
+        <div class="dashboard__resumen">
+          <app-monthly-income-card [income]="resumen()?.monthlyIncome ?? null"></app-monthly-income-card>
+          <app-monthly-expenses-card [expenses]="resumen()?.monthlyExpenses ?? null"></app-monthly-expenses-card>
+        </div>
+      </div>
+
+      <div class="dashboard__actividad">
+        <app-recent-activity [transactions]="transacciones()"></app-recent-activity>
+      </div>
+    }
+  </main>
+
+  <app-add-activity-button (agregar)="agregarActividad()"></app-add-activity-button>
+
+  @if (mostrarFormulario()) {
+    <app-transaction-form
+      (guardar)="guardarTransaccion($event)"
+      (cancelar)="cerrarFormulario()"
+    ></app-transaction-form>
+  }
+</div>

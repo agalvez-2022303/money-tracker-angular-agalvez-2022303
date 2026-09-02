@@ -1,0 +1,32 @@
+:host {
+  display: block;
+  min-height: 100vh;
+  background: var(--bg);
+}
+
+.placeholder {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+.placeholder__contenido {
+  text-align: center;
+  max-width: 420px;
+}
+
+.placeholder__titulo {
+  font-size: 26px;
+  font-weight: 700;
+  color: var(--fg);
+  margin: 0 0 12px;
+}
+
+.placeholder__descripcion {
+  font-size: 15px;
+  color: var(--muted);
+  line-height: 1.6;
+  margin: 0;
+}

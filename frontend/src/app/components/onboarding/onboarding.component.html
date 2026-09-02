@@ -1,0 +1,59 @@
+<div class="onboarding">
+  <div class="onboarding__fondo" aria-hidden="true">
+    <div class="onboarding__cubo">
+      <app-three-d-cube></app-three-d-cube>
+    </div>
+    <div class="onboarding__orbita onboarding__orbita--1"></div>
+    <div class="onboarding__orbita onboarding__orbita--2"></div>
+  </div>
+
+  <main class="onboarding__contenido">
+    @if (terminado) {
+      <section class="onboarding__final" role="status">
+        <div class="onboarding__check" aria-hidden="true">
+          <svg lucideCheck size="44"></svg>
+        </div>
+        <h1 class="onboarding__titulo">¡Listo para empezar a organizar tus finanzas!</h1>
+        <p class="onboarding__descripcion">
+          Para aprovechar al máximo Money Tracker, te recomendamos completar tu perfil financiero.
+        </p>
+        <div class="onboarding__acciones">
+          <button type="button" (click)="empezarCuestionario()" class="onboarding__btn onboarding__btn--primario">
+            Completar mi perfil financiero
+          </button>
+          <button type="button" (click)="saltar()" class="onboarding__btn onboarding__btn--secundario">
+            Ir al dashboard
+          </button>
+        </div>
+      </section>
+    } @else {
+      <div class="onboarding__paso" [style.--paso]="paso">
+        <div class="onboarding__slide" [style.transform]="'translateX(-' + (paso - 1) * 100 + '%)'">
+          @for (item of vistaPrevia; track item; let i = $index) {
+            <div class="onboarding__panel">
+              <span class="onboarding__numero">{{ String(i + 1).padStart(2, '0') }}</span>
+              <h2 class="onboarding__panel-titulo">{{ item }}</h2>
+              <p class="onboarding__panel-desc">
+                Money Tracker convierte tus números en decisiones. Todo con una experiencia visual inmersiva.
+              </p>
+            </div>
+          }
+        </div>
+
+        <div class="onboarding__controles">
+          <button type="button" (click)="anterior()" class="onboarding__btn onboarding__btn--icono" [disabled]="paso === 1" aria-label="Anterior">
+            <svg lucideArrowLeft size="18"></svg>
+          </button>
+          <div class="onboarding__puntos">
+            @for (item of vistaPrevia; track item; let i = $index) {
+              <span class="onboarding__punto" [class.onboarding__punto--activo]="paso === i + 1"></span>
+            }
+          </div>
+          <button type="button" (click)="siguiente()" class="onboarding__btn onboarding__btn--icono onboarding__btn--primario" aria-label="Siguiente">
+            <svg lucideArrowRight size="18"></svg>
+          </button>
+        </div>
+      </div>
+    }
+  </main>
+</div>

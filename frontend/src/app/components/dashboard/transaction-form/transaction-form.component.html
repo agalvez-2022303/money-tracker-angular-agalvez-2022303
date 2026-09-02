@@ -1,0 +1,95 @@
+<div class="modal-overlay" (click)="onBackdropClick($event)">
+  <div class="modal">
+    <div class="modal__header">
+      <h2 class="modal__titulo">Nueva actividad</h2>
+      <button type="button" class="modal__cerrar" (click)="onCancelar()" aria-label="Cerrar">
+        <svg lucideX size="20"></svg>
+      </button>
+    </div>
+
+    <form class="modal__formulario" (ngSubmit)="onGuardar()">
+      <div class="campo">
+        <label class="campo__etiqueta" for="tipo">Tipo</label>
+        <div class="campo__tipo">
+          <button
+            type="button"
+            class="campo__tipo-btn"
+            [class.campo__tipo-btn--activo]="tipo() === 'expense'"
+            [class.campo__tipo-btn--gasto]="tipo() === 'expense'"
+            (click)="tipo.set('expense')"
+          >
+            Gasto
+          </button>
+          <button
+            type="button"
+            class="campo__tipo-btn"
+            [class.campo__tipo-btn--activo]="tipo() === 'income'"
+            [class.campo__tipo-btn--ingreso]="tipo() === 'income'"
+            (click)="tipo.set('income')"
+          >
+            Ingreso
+          </button>
+        </div>
+      </div>
+
+      <div class="campo">
+        <label class="campo__etiqueta" for="descripcion">Descripcion</label>
+        <input
+          id="descripcion"
+          type="text"
+          class="campo__input"
+          placeholder="Ej: Supermercado, Salario..."
+          [ngModel]="descripcion()"
+          (ngModelChange)="descripcion.set($event)"
+          name="descripcion"
+          required
+        />
+      </div>
+
+      <div class="campo">
+        <label class="campo__etiqueta" for="monto">Monto (GTQ)</label>
+        <input
+          id="monto"
+          type="number"
+          class="campo__input"
+          placeholder="0.00"
+          min="0.01"
+          step="0.01"
+          [ngModel]="monto()"
+          (ngModelChange)="monto.set($event)"
+          name="monto"
+          required
+        />
+      </div>
+
+      <div class="campo">
+        <label class="campo__etiqueta" for="categoria">Categoria</label>
+        <select
+          id="categoria"
+          class="campo__input campo__select"
+          [ngModel]="categoria()"
+          (ngModelChange)="categoria.set($event)"
+          name="categoria"
+        >
+          <option value="">Sin categoria</option>
+          @for (cat of categorias; track cat) {
+            <option [value]="cat">{{ cat }}</option>
+          }
+        </select>
+      </div>
+
+      <div class="modal__acciones">
+        <button type="button" class="modal__btn modal__btn--cancelar" (click)="onCancelar()">
+          Cancelar
+        </button>
+        <button
+          type="submit"
+          class="modal__btn modal__btn--guardar"
+          [disabled]="!descripcion() || !monto() || monto()! <= 0"
+        >
+          Guardar
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

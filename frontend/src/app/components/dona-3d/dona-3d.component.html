@@ -1,0 +1,38 @@
+<div class="dona" [class.dona--vacio]="!tieneDatos()">
+  @if (tieneDatos()) {
+    <div class="dona__escena" role="img" [attr.aria-label]="'Dona de distribución de gastos por categoría'">
+      <svg class="dona__svg" viewBox="0 0 180 180" aria-hidden="true">
+        <circle class="dona__base" cx="90" cy="90" [attr.r]="radio" fill="none"></circle>
+        @for (seg of segmentos(); track seg.nombre) {
+          <circle
+            class="dona__segmento"
+            cx="90" cy="90" [attr.r]="radio" fill="none"
+            [style.stroke]="seg.color"
+            [style.stroke-dasharray]="circunferencia"
+            [style.stroke-dashoffset]="seg.offset"
+            [attr.data-pct]="seg.pct"
+          ></circle>
+        }
+      </svg>
+      <div class="dona__centro">
+        <span class="dona__total">{{ datos().total | currency: 'GTQ' }}</span>
+        <span class="dona__label">gasto total</span>
+      </div>
+    </div>
+
+    <ul class="dona__leyenda">
+      @for (seg of segmentos(); track seg.nombre) {
+        <li class="dona__item">
+          <span class="dona__swatch" [style.background]="seg.color"></span>
+          <span class="dona__nombre">{{ seg.nombre }}</span>
+          <span class="dona__monto">{{ seg.monto | currency: 'GTQ' }}</span>
+          <span class="dona__pct">{{ seg.pct | number: '1.0-0' }}%</span>
+        </li>
+      }
+    </ul>
+  } @else {
+    <div class="dona__vacio">
+      <p>Sin gastos registrados para mostrar.</p>
+    </div>
+  }
+</div>

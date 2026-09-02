@@ -1,0 +1,42 @@
+<article class="gauge" [class.gauge--alerta]="estado() === 'alerta'" [class.gauge--excedido]="estado() === 'excedido'">
+  <header class="gauge__cabecera">
+    <span class="gauge__icono" aria-hidden="true">
+      <svg lucideWallet size="20"></svg>
+    </span>
+    <h2 class="gauge__titulo">Presupuesto mensual</h2>
+  </header>
+
+  @if (presupuesto()) {
+    <div class="gauge__escena">
+      <div class="gauge__medidor" role="img" [attr.aria-label]="'Presupuesto usado al ' + porcentaje() + ' por ciento'">
+        <div class="gauge__arco"></div>
+        <div class="gauge__aguja" [style.transform]="'rotate(' + rotacion() + 'deg)'">
+          <span class="gauge__aguja-punta"></span>
+        </div>
+        <div class="gauge__centro">
+          <strong class="gauge__porcentaje">{{ porcentaje() | number: '1.0-0' }}%</strong>
+          <span class="gauge__etiqueta">usado</span>
+        </div>
+      </div>
+
+      <div class="gauge__detalles">
+        <div class="gauge__fila">
+          <span>Presupuesto</span>
+          <strong>{{ presupuesto()!.presupuestoMes | currency: 'GTQ' }}</strong>
+        </div>
+        <div class="gauge__fila">
+          <span>Gastado</span>
+          <strong>{{ presupuesto()!.gastado | currency: 'GTQ' }}</strong>
+        </div>
+        <div class="gauge__fila gauge__fila--restante">
+          <span>Disponible</span>
+          <strong>{{ restante() | currency: 'GTQ' }}</strong>
+        </div>
+      </div>
+    </div>
+  } @else {
+    <div class="gauge__vacio">
+      <p>Configurá tu presupuesto para ver el medidor.</p>
+    </div>
+  }
+</article>

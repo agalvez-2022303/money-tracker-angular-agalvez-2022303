@@ -1,0 +1,247 @@
+<div class="cursor-dot"></div>
+<div class="cursor-ring"></div>
+@for (o of ondas; track o.id) {
+  <div class="click-ripple" [style.left]="o.x + 'px'" [style.top]="o.y + 'px'"></div>
+}
+<div class="scanlines"></div>
+
+<div class="stars">
+  @for (e of estrellas; track e.id) {
+    <div class="star" [style.left.%]="e.l" [style.top.%]="e.t" [style.width.px]="e.s" [style.height.px]="e.s" [style.--d]="e.d" [style.--dl]="e.dl"></div>
+  }
+</div>
+
+<div class="coins-3d" aria-hidden="true">
+  <app-three-d-coins></app-three-d-coins>
+</div>
+
+<div class="pagina">
+  <nav class="nav-bar">
+    <div class="nav-izquierda">
+      <img src="assets/logo.png" alt="Money Tracker" class="nav-logo"/>
+      <span class="nav-nombre">Money Tracker</span>
+    </div>
+    <div class="nav-derecha">
+      <a class="nav-enlace" (click)="irALogin()">Iniciar sesion</a>
+    </div>
+  </nav>
+
+  <section class="hero">
+    <div class="hero-izquierda">
+      <h1 class="hero-titulo">Tu dinero,<br/><span class="hero-titulo-accent">bajo control.</span></h1>
+      <p class="hero-sub">
+        Registra gastos, rastrea ingresos y visualiza donde se va tu dinero. Toma decisiones financieras con datos claros, no con suposiciones.
+      </p>
+      <div class="hero-acciones">
+        <a class="hero-cta btn-shimmer" (click)="irALogin()">
+          Iniciar sesion
+        </a>
+      </div>
+    </div>
+    <div class="hero-derecha">
+      <div class="hero-3d-scene" aria-hidden="true">
+        <app-three-d-background [densidad]="14"></app-three-d-background>
+      </div>
+      <div class="trader-panel">
+        <div class="trader-card">
+          <div class="trader-card-header">
+            <span class="trader-card-label">Balance total</span>
+            <span class="trader-card-badge">+12.4%</span>
+          </div>
+          <div class="trader-card-valor">$284,592.00</div>
+          <div class="trader-card-cambio">
+            <span class="trader-card-verde">+$14,280.00</span>
+            <span class="trader-card-periodo">este mes</span>
+          </div>
+          <div class="phone-animacion">
+            <div class="phone-frame">
+              <div class="phone-notch"></div>
+              <div class="phone-screen">
+                <div class="phone-header-bar">
+                  <span class="phone-app-name">Money Tracker</span>
+                  <span class="phone-time">09:41</span>
+                </div>
+                <div class="phone-portfolio-mini">
+                  <div class="phone-portfolio-label">Balance total</div>
+                  <div class="phone-portfolio-amount">$28,459</div>
+                </div>
+                <div class="phone-transacciones">
+                  <div class="phone-tx phone-tx-in">
+                    <svg lucideArrowDownLeft class="phone-tx-icon" size="16"></svg>
+                    <div class="phone-tx-info">
+                      <span class="phone-tx-nombre">Salario</span>
+                      <span class="phone-tx-hora">Hoy</span>
+                    </div>
+                    <span class="phone-tx-monto phone-tx-positivo">+$4,500</span>
+                  </div>
+                  <div class="phone-tx phone-tx-out">
+                    <svg lucideArrowUpRight class="phone-tx-icon" size="16"></svg>
+                    <div class="phone-tx-info">
+                      <span class="phone-tx-nombre">Supermercado</span>
+                      <span class="phone-tx-hora">Ayer</span>
+                    </div>
+                    <span class="phone-tx-monto phone-tx-negativo">-$320</span>
+                  </div>
+                  <div class="phone-tx phone-tx-out">
+                    <svg lucideArrowUpRight class="phone-tx-icon" size="16"></svg>
+                    <div class="phone-tx-info">
+                      <span class="phone-tx-nombre">Netflix</span>
+                      <span class="phone-tx-hora">Hace 3d</span>
+                    </div>
+                    <span class="phone-tx-monto phone-tx-negativo">-$15</span>
+                  </div>
+                  <div class="phone-tx phone-tx-in">
+                    <svg lucideArrowDownLeft class="phone-tx-icon" size="16"></svg>
+                    <div class="phone-tx-info">
+                      <span class="phone-tx-nombre">Freelance</span>
+                      <span class="phone-tx-hora">Hace 4d</span>
+                    </div>
+                    <span class="phone-tx-monto phone-tx-positivo">+$800</span>
+                  </div>
+                  <div class="phone-tx phone-tx-out">
+                    <svg lucideArrowUpRight class="phone-tx-icon" size="16"></svg>
+                    <div class="phone-tx-info">
+                      <span class="phone-tx-nombre">Transporte</span>
+                      <span class="phone-tx-hora">Hace 5d</span>
+                    </div>
+                    <span class="phone-tx-monto phone-tx-negativo">-$45</span>
+                  </div>
+                </div>
+                <div class="phone-bottom-bar">
+                  <span class="phone-nav-dot active"></span>
+                  <span class="phone-nav-dot"></span>
+                  <span class="phone-nav-dot"></span>
+                  <span class="phone-nav-dot"></span>
+                </div>
+              </div>
+            </div>
+            <div class="phone-glow"></div>
+          </div>
+          <div class="trader-card-legend">
+            <span class="trader-legend-item"><span class="trader-dot"></span> Ingresos</span>
+            <span class="trader-legend-item"><span class="trader-dot dot2"></span> Gastos fijos</span>
+            <span class="trader-legend-item"><span class="trader-dot dot3"></span> Variable</span>
+          </div>
+        </div>
+        <div class="trader-mini-cards">
+          <div class="trader-mini">
+            <span class="trader-mini-label">Gastado hoy</span>
+            <span class="trader-mini-valor">-$365</span>
+          </div>
+          <div class="trader-mini">
+            <span class="trader-mini-label">Ingresos mes</span>
+            <span class="trader-mini-valor">+$5,300</span>
+          </div>
+          <div class="trader-mini">
+            <span class="trader-mini-label">Ahorro</span>
+            <span class="trader-mini-valor">32%</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="separador-seccion"></div>
+
+  <section class="seccion">
+    <div class="seccion-header">
+      <div class="seccion-etiqueta">Por que Money Tracker</div>
+      <h2 class="seccion-titulo">Datos que hablan. Resultados que importan.</h2>
+    </div>
+    <div class="seccion-body">
+      <div class="seccion-texto">
+        <p class="seccion-descripcion">
+          Cada transacción, cada movimiento, cada centavo tiene una historia. Money Tracker te permite leerla, entenderla y usarla a tu favor.
+        </p>
+        <p class="seccion-descripcion">
+          No es solo registrar gastos. Es entender donde va tu dinero, detectar patrones antes de que se conviertan en problemas y optimizar cada decision financiera con datos reales.
+        </p>
+      </div>
+      <div class="seccion-visual">
+        <div class="seccion-card">
+          <div class="seccion-card-num">01</div>
+          <div class="seccion-card-titulo">Analisis en tiempo real</div>
+          <div class="seccion-card-desc">Dashboards que se actualizan al instante. Sin esperas, sin lag.</div>
+        </div>
+        <div class="seccion-card">
+          <div class="seccion-card-num">02</div>
+          <div class="seccion-card-titulo">Patrones inteligentes</div>
+          <div class="seccion-card-desc">Identifica tendencias de gasto automaticamente con machine learning.</div>
+        </div>
+        <div class="seccion-card">
+          <div class="seccion-card-num">03</div>
+          <div class="seccion-card-titulo">Control total</div>
+          <div class="seccion-card-desc">De tu salario a tu inversion: todo en un solo lugar, visible y claro.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="seccion seccion-funcionalidades">
+    <div class="seccion-header">
+      <div class="seccion-etiqueta">Herramientas</div>
+      <h2 class="seccion-titulo">Todo lo que necesitas para crecer</h2>
+    </div>
+    <div class="cuadricula-funcionalidades">
+      @for (f of funcionalidades; track f.num) {
+        <div class="tarjeta-funcionalidad">
+          <div class="funcionalidad-numero">{{ f.num }}</div>
+          <div class="funcionalidad-titulo">{{ f.titulo }}</div>
+          <div class="funcionalidad-desc">{{ f.desc }}</div>
+        </div>
+      }
+    </div>
+  </section>
+
+  <div class="separador-seccion"></div>
+
+  <section class="seccion">
+    <div class="fila-estadisticas">
+      <div class="bloque-estadistica">
+        <div class="estadistica-numero">$18M+</div>
+        <div class="estadistica-etiqueta">Volumen gestionado</div>
+      </div>
+      <div class="bloque-estadistica">
+        <div class="estadistica-numero">2.4k</div>
+        <div class="estadistica-etiqueta">Usuarios activos</div>
+      </div>
+      <div class="bloque-estadistica">
+        <div class="estadistica-numero">$0</div>
+        <div class="estadistica-etiqueta">Comisiones ocultas</div>
+      </div>
+      <div class="bloque-estadistica">
+        <div class="estadistica-numero">24/7</div>
+        <div class="estadistica-etiqueta">Monitoreo continuo</div>
+      </div>
+    </div>
+  </section>
+
+  <div class="separador-seccion"></div>
+
+  <section class="seccion seccion-cta">
+    <div class="seccion-cta-inner">
+      <div class="seccion-etiqueta etiqueta-cta">Empieza hoy</div>
+      <h2 class="seccion-titulo titulo-cta">Tu proximo movimiento empieza aqui</h2>
+      <p class="seccion-descripcion descripcion-cta">
+        Los mejores traders no esperan el momento perfecto. Se preparan para el que viene.
+      </p>
+      <a class="hero-cta btn-shimmer" (click)="irALogin()">
+        Empezar ahora
+      </a>
+    </div>
+  </section>
+
+  <footer class="pie-pagina">
+    <div class="pie-interno">
+      <div class="pie-izquierda">
+        <img src="assets/logo.png" alt="Money Tracker" class="pie-logo"/>
+        <span class="pie-derechos">&copy; 2026 Money Tracker. Todos los derechos reservados.</span>
+      </div>
+      <div class="pie-links">
+        <a class="pie-link">Terminos</a>
+        <a class="pie-link">Privacidad</a>
+        <a class="pie-link">Contacto</a>
+      </div>
+    </div>
+  </footer>
+</div>

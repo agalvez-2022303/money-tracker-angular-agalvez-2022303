@@ -1,0 +1,44 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model User {
+  id        Int      @id @default(autoincrement())
+  email     String   @unique
+  password  String
+  name      String
+  createdAt DateTime @default(now())
+
+  transactions   Transaction[]
+  savingsGoal    SavingsGoal?
+}
+
+model Transaction {
+  id          Int      @id @default(autoincrement())
+  description String
+  amount      Float
+  type        String   // 'income' o 'expense'
+  category    String?
+  date        DateTime @default(now())
+  userId      Int
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([date])
+}
+
+model SavingsGoal {
+  id            Int    @id @default(autoincrement())
+  currentSavings Float  @default(0)
+  targetAmount  Float
+  targetName    String?
+  userId        Int    @unique
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}

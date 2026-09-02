@@ -1,0 +1,69 @@
+<div class="cuestionario">
+  <div class="cuestionario__fondo" aria-hidden="true">
+    <app-three-d-background [densidad]="12"></app-three-d-background>
+  </div>
+
+  <header class="cuestionario__topbar">
+    <a class="cuestionario__volver" (click)="salir()">
+      <svg lucideArrowLeft size="16"></svg>
+      <span>Volver al dashboard</span>
+    </a>
+    <img src="assets/logo.png" alt="Money Tracker" class="cuestionario__logo" />
+  </header>
+
+  <main class="cuestionario__contenido">
+    <div class="cuestionario__tarjeta">
+      <h1 class="cuestionario__titulo">Conozcamos tu situación financiera</h1>
+      <p class="cuestionario__subtitulo">Respondé unas preguntas rápidas para personalizar tu plan financiero.</p>
+
+      @if (finalizado()) {
+        <section class="finalizado" role="status">
+          <div class="finalizado__check" aria-hidden="true">
+            <svg lucideCheck size="40"></svg>
+          </div>
+          <h2 class="finalizado__titulo">¡Cuestionario completado!</h2>
+          <p class="finalizado__texto">
+            Gracias, <strong>{{ nombreCompleto() }}</strong>. Ya tenés tu perfil financiero listo.
+            Ahora podés registrar tus transacciones y ver recomendaciones personalizadas en tu dashboard.
+          </p>
+          <button type="button" class="finalizado__boton" (click)="salir()">
+            Ir a mi dashboard
+          </button>
+        </section>
+      } @else {
+        <div class="cuestionario__progreso">
+          <app-cuestionario-progreso [actual]="paso()"></app-cuestionario-progreso>
+        </div>
+
+        <div class="cuestionario__paso">
+          @switch (paso()) {
+            @case (1) {
+              <app-cuestionario-paso-personal
+                (continuar)="onGuardarPersonales($event)"
+                (volver)="salir()"
+              ></app-cuestionario-paso-personal>
+            }
+            @case (2) {
+              <app-cuestionario-paso-metas
+                (continuar)="onGuardarMetas($event)"
+                (atras)="atras()"
+              ></app-cuestionario-paso-metas>
+            }
+            @case (3) {
+              <app-cuestionario-paso-ingresos
+                (continuar)="onGuardarIngresos($event)"
+                (atras)="atras()"
+              ></app-cuestionario-paso-ingresos>
+            }
+            @case (4) {
+              <app-cuestionario-paso-ahorro
+                (continuar)="onGuardarAhorro($event)"
+                (atras)="atras()"
+              ></app-cuestionario-paso-ahorro>
+            }
+          }
+        </div>
+      }
+    </div>
+  </main>
+</div>

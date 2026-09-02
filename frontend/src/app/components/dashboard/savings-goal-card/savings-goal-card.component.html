@@ -1,0 +1,58 @@
+<article class="tarjeta meta">
+  <header class="tarjeta__cabecera">
+    <div class="tarjeta__titulo">
+      <span class="tarjeta__icono-caja" aria-hidden="true">
+        <svg lucideTarget size="18"></svg>
+      </span>
+      <h2 class="tarjeta__titulo-texto">Meta de ahorro</h2>
+    </div>
+  </header>
+
+  @if (tieneMeta()) {
+    <div class="meta__contenido">
+      <div
+        class="meta__anillo"
+        [style.--progreso]="porcentaje() + '%'"
+        role="img"
+        [attr.aria-label]="'Progreso de la meta: ' + porcentaje() + ' por ciento'"
+      >
+        <svg class="meta__anillo-svg" viewBox="0 0 128 128" aria-hidden="true">
+          <circle class="meta__anillo-base" cx="64" cy="64" [attr.r]="radio"></circle>
+          <circle
+            class="meta__anillo-progreso"
+            cx="64"
+            cy="64"
+            [attr.r]="radio"
+            [style.stroke-dasharray]="circunferencia"
+            [style.stroke-dashoffset]="offset()"
+          ></circle>
+        </svg>
+        <div class="meta__anillo-centro">
+          <span class="meta__porcentaje">{{ porcentaje() | number: '1.0-0' }}%</span>
+          <span class="meta__porcentaje-texto">progreso</span>
+        </div>
+      </div>
+
+      <div class="meta__detalle">
+        <p class="meta__descripcion">{{ meta()!.targetName ?? 'Meta de ahorro' }}</p>
+        <dl class="meta__valores">
+          <div class="meta__fila">
+            <dt>Ahorrado</dt>
+            <dd>{{ meta()!.currentSavings | currency: 'GTQ' }}</dd>
+          </div>
+          <div class="meta__fila">
+            <dt>Objetivo</dt>
+            <dd>{{ meta()!.targetAmount | currency: 'GTQ' }}</dd>
+          </div>
+        </dl>
+      </div>
+    </div>
+  } @else {
+    <div class="estado-vacio">
+      <span class="estado-vacio__icono-caja" aria-hidden="true">
+        <svg lucideTarget size="24"></svg>
+      </span>
+      <p class="estado-vacio__texto">Aún no tienes una meta de ahorro.</p>
+    </div>
+  }
+</article>

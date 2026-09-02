@@ -1,0 +1,17 @@
+<article class="desglose" aria-labelledby="desglose-titulo">
+  <header class="desglose__cabecera">
+    <span class="desglose__icono" aria-hidden="true">
+      <svg lucidePieChart size="18"></svg>
+    </span>
+    <h2 id="desglose-titulo" class="desglose__titulo">Desglose por categorías</h2>
+  </header>
+
+  @if (datos()) {
+    <app-dona-3d [datos]="datos()!"></app-dona-3d>
+  } @else {
+    <div class="desglose__vacio">
+      <span class="desglose__vacio-icono" aria-hidden="true">&#9670;</span>
+      <p>Registrá tus gastos para ver el desglose por categoría.</p>
+    </div>
+  }
+</article>
