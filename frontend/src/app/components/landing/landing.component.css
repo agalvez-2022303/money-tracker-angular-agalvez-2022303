@@ -1,5 +1,11 @@
 :host { display: block; }
 
+.coins-3d {
+  position: fixed; inset: 0; z-index: 0;
+  pointer-events: none; overflow: hidden;
+  opacity: 0.55;
+}
+
 .pagina {
   position: relative; z-index: 1;
   min-height: 100vh;
