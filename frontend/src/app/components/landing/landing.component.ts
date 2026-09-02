@@ -2,11 +2,12 @@ import { Component, HostListener } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { LucideArrowDownLeft, LucideArrowUpRight } from '@lucide/angular';
+import { ThreeDBackgroundComponent } from '../three-d-background/three-d-background.component';
 
 @Component({
   selector: 'app-landing',
   standalone: true,
-  imports: [CommonModule, LucideArrowDownLeft, LucideArrowUpRight],
+  imports: [CommonModule, LucideArrowDownLeft, LucideArrowUpRight, ThreeDBackgroundComponent],
   templateUrl: './landing.component.html',
   styleUrls: ['./landing.component.css']
 })

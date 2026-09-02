@@ -50,6 +50,18 @@
 .hero-derecha {
   flex: 0 0 auto;
   display: flex; align-items: center; justify-content: center;
+  position: relative;
+}
+.hero-3d-scene {
+  position: absolute; inset: -20%;
+  z-index: 0; pointer-events: none;
+  opacity: 0.5;
+}
+.hero-3d-scene app-three-d-background {
+  position: absolute; inset: 0;
+}
+.hero-derecha .trader-panel {
+  position: relative; z-index: 1;
 }
 .hero-titulo {
   font-family: var(--font-body); font-weight: 700;
@@ -98,6 +110,7 @@
 /* ── Trader Panel ── */
 .trader-panel {
   display: flex; flex-direction: column; gap: 16px;
+  position: relative; z-index: 1;
   animation: warpIn 1s cubic-bezier(0.23,1,0.32,1) 0.3s both;
 }
 .trader-card {
