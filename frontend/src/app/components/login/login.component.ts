@@ -4,11 +4,12 @@ import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { LucideArrowLeft } from '@lucide/angular';
 import { AuthService } from '../../services/auth.service';
+import { ThreeDCubeComponent } from '../three-d-cube/three-d-cube.component';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [CommonModule, FormsModule, LucideArrowLeft],
+  imports: [CommonModule, FormsModule, LucideArrowLeft, ThreeDCubeComponent],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
