@@ -1,0 +1,80 @@
+<section class="paso">
+  <header class="paso__cabecera">
+    <span class="paso__numero">Paso 4 de 4</span>
+    <h2 class="paso__titulo">Tu plan de ahorro</h2>
+    <p class="paso__subtitulo">Cuéntanos sobre tu meta de ahorro y cómo te gustaría alcanzarla.</p>
+  </header>
+
+  <form class="paso__formulario" (ngSubmit)="onContinuar()">
+    <label class="toggle">
+      <input type="checkbox" [(ngModel)]="tenerMetaAhorro" name="tenerMetaAhorro" />
+      <span class="toggle__track"><span class="toggle__thumb"></span></span>
+      <span class="toggle__label">Tengo una meta de ahorro definida</span>
+    </label>
+
+    @if (tenerMetaAhorro) {
+      <div class="paso__meta-fields">
+        <div class="campo">
+          <label class="campo__etiqueta" for="nombreMeta">Nombre de tu meta *</label>
+          <input id="nombreMeta" type="text" class="campo__input" placeholder="Ej: Fondo de emergencia"
+            [(ngModel)]="nombreMeta" name="nombreMeta" required />
+        </div>
+
+        <div class="paso__rejilla">
+          <div class="campo">
+            <label class="campo__etiqueta" for="montoObjetivo">Monto objetivo ({{ moneda }}) *</label>
+            <input id="montoObjetivo" type="number" class="campo__input" placeholder="0.00" min="0" step="0.01"
+              [(ngModel)]="montoObjetivo" name="montoObjetivo" required />
+          </div>
+          <div class="campo">
+            <label class="campo__etiqueta" for="aporteMensual">Aporte mensual propuesto</label>
+            <input id="aporteMensual" type="number" class="campo__input" placeholder="0.00" min="0" step="0.01"
+              [(ngModel)]="aporteMensual" name="aporteMensual" />
+          </div>
+        </div>
+
+        <div class="campo">
+          <label class="campo__etiqueta" for="ahorroActual">Ahorro actual ({{ moneda }})</label>
+          <input id="ahorroActual" type="number" class="campo__input" placeholder="0.00" min="0" step="0.01"
+            [(ngModel)]="ahorroActual" name="ahorroActual" />
+        </div>
+
+        <div class="paso__rejilla">
+          <div class="campo">
+            <label class="campo__etiqueta" for="moneda">Moneda</label>
+            <select id="moneda" class="campo__input campo__select" [(ngModel)]="moneda" name="moneda">
+              @for (m of monedas; track m) {
+                <option [value]="m">{{ m }}</option>
+              }
+            </select>
+          </div>
+        </div>
+
+        <div class="campo">
+          <label class="campo__etiqueta">¿Con qué fin ahorras?</label>
+          <div class="chips">
+            @for (razon of razones; track razon) {
+              <button type="button" class="chip" [class.chip--activo]="razonesAhorro.includes(razon)"
+                (click)="toggleRazon(razon)">
+                {{ razon }}
+              </button>
+            }
+          </div>
+        </div>
+      </div>
+    }
+
+    <div class="paso__aviso">
+      <span class="paso__aviso-icono" aria-hidden="true">&#9733;</span>
+      <p>Tu plan se puede ajustar en cualquier momento desde Configuración. La información que aquí nos compartas se usa solo para recomendarte mejores estrategias de ahorro.</p>
+    </div>
+
+    <div class="paso__acciones">
+      <button type="button" class="boton boton--secundario" (click)="atras.emit()">Atrás</button>
+      <button type="submit" class="boton boton--primario"
+        [disabled]="tenerMetaAhorro && (!nombreMeta.trim() || !montoObjetivo || montoObjetivo! <= 0)">
+        Terminar
+      </button>
+    </div>
+  </form>
+</section>
