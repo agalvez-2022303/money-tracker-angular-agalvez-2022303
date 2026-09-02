@@ -5,6 +5,7 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { SessionExpiredComponent } from './components/session-expired/session-expired.component';
 import { PlaceholderComponent } from './components/placeholder/placeholder.component';
 import { CuestionarioComponent } from './components/cuestionario/cuestionario.component';
+import { OnboardingComponent } from './components/onboarding/onboarding.component';
 import { AuthGuard, LoginGuard } from './guards/auth.guard';
 
 export const routes: Routes = [
@@ -12,6 +13,7 @@ export const routes: Routes = [
   { path: 'login', component: LoginComponent, canActivate: [LoginGuard] },
   { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
   { path: 'encuesta', component: CuestionarioComponent, canActivate: [AuthGuard] },
+  { path: 'onboarding', component: OnboardingComponent, canActivate: [AuthGuard] },
   {
     path: 'history',
     component: PlaceholderComponent,
